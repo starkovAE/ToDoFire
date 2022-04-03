@@ -47,7 +47,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d2D-4M-qeS">
                                                 <rect key="frame" x="0.0" y="55" width="334" height="34"/>
                                                 <fontDescription key="fontDescription" name="TamilSangamMN" family="Tamil Sangam MN" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -73,7 +73,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tx4-fa-2XG"/>
-                                                    <segue destination="2mS-TA-9fp" kind="show" id="754-wG-y5a"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Bk-Po-v1W">
@@ -121,6 +120,7 @@
                         <outlet property="emailTF" destination="YVV-Md-376" id="6qh-Cu-8fJ"/>
                         <outlet property="passwordTF" destination="d2D-4M-qeS" id="agc-h4-dkt"/>
                         <outlet property="warnLabel" destination="xug-yx-CYz" id="Z0w-Zl-oeC"/>
+                        <segue destination="2mS-TA-9fp" kind="show" identifier="tasksSegue" id="btk-Kl-aOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -159,6 +159,11 @@
                         <color key="backgroundColor" red="0.5647059083" green="0.86274516580000005" blue="0.82745099070000006" alpha="0.9017228890728477" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tasks" id="po8-6E-anQ">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="GLD-t0-Rje">
+                            <connections>
+                                <action selector="signOutTapped:" destination="dVK-wp-3Wq" id="8I1-89-dpK"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="wiN-ZL-RG1">
                             <connections>
                                 <action selector="addTapped:" destination="dVK-wp-3Wq" id="oiy-kR-bpb"/>

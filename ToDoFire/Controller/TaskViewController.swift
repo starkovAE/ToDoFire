@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Firebase
 class TaskViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -19,6 +19,15 @@ class TaskViewController: UIViewController {
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
     }
     
+    @IBAction func signOutTapped(_ sender: UIBarButtonItem) { //когда мы нажимаем на эту кнопку мы хотим, чтобы мы вышли из данного профиля
+        do {
+           try Auth.auth().signOut() //у этого метода есть маркировка throws (поэтому он используется в do catch)
+        } catch {
+            print(error.localizedDescription)
+        }
+        //закрываем этот экран
+       dismiss(animated: true, completion: nil)
+    }
 } //закрывает класс
 
 //MARK: - Extension for VC
