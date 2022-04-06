@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 class ViewController: UIViewController {
 let segueIdentifier = "tasksSegue"
+    var ref: DatabaseReference!
+    
     @IBOutlet weak var warnLabel: UILabel!
     
     @IBOutlet weak var emailTF: UITextField!
@@ -17,6 +19,7 @@ let segueIdentifier = "tasksSegue"
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference(withPath: "users")
         //Создаем наблюдателей для клавы
         NotificationCenter.default.addObserver(self, selector: #selector(kbDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
@@ -79,21 +82,21 @@ let segueIdentifier = "tasksSegue"
     
  //MARK: - registerTapped
     @IBAction func registerTapped(_ sender: UIButton) {
-        guard let email = emailTF.text, let password = passwordTF.text, email != "", password != "" else {
+        guard let email = emailTF.text, let password = passwordTF.text, email != "", password != ""
+        else {
             displayWarningLabel(withText: "Info is incorrect")
-            return }
-        Auth.auth().createUser(withEmail: email, password: password) {  user, error in
-            if error == nil {
-                if user != nil {
-//                    self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
-                    
-                } else {
-                    print("user is not created")
-                }
-            } else {
-                print((error?.localizedDescription)!)
-            }
+            return
+            
         }
+        Auth.auth().createUser(withEmail: email, password: password, completion:  { [weak self] authResult, error
+            in
+            guard error == nil, let user = authResult?.user  else {
+                print(error!.localizedDescription)
+                return
+            }
+            let userRef = self?.ref.child(user.uid)
+            userRef?.setValue(user.email, forKey: "email")
+        })
         
         
     }
